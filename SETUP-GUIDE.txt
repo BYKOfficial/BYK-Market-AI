@@ -1,0 +1,218 @@
+╔═══════════════════════════════════════════════════════════╗
+║  🚀 BYK MARKET AI - SETUP GUIDE (Hinglish)               ║
+║  Ekdum Simple Steps - Ek Ek Karke Follow Karo            ║
+╚═══════════════════════════════════════════════════════════╝
+
+
+📁 STEP 1: FOLDER KAHAN RAKHNA HAI DECIDE KARO
+═══════════════════════════════════════════════════════════
+
+Recommendation: DESKTOP pe rakho (asaan rahega dhundhne mein)
+
+Is folder ko apne Desktop pe copy/move kar do.
+
+
+📂 STEP 2: VS CODE MEIN FOLDER KHOLO
+═══════════════════════════════════════════════════════════
+
+Method 1 (Drag & Drop - Sabse Aasan):
+  1. VS Code kholo
+  2. 'byk-market-ai' folder ko VS Code window pe DRAG karke DROP karo
+  3. Ho gaya! ✅
+
+Method 2 (Menu Se):
+  1. VS Code kholo
+  2. File menu → Open Folder
+  3. Desktop se 'byk-market-ai' folder select karo
+  4. "Select Folder" button dabao
+
+
+✅ CHECK KARO - SAHI FOLDER KHULA?
+═══════════════════════════════════════════════════════════
+
+VS Code ke LEFT side (Explorer panel) mein ye dikna chahiye:
+
+  📁 byk-market-ai
+    ├── 📁 src
+    │   ├── 📁 config
+    │   ├── 📁 controllers
+    │   ├── 📁 middleware
+    │   └── 📁 routes
+    ├── 📄 package.json
+    ├── 📄 server.js
+    └── 📄 .env
+
+Agar ye sab dikha → PERFECT! Aage badho ✅
+Agar nahi dikha → Galat folder khola hai, dobara try karo
+
+
+💻 STEP 3: TERMINAL KHOLO
+═══════════════════════════════════════════════════════════
+
+Terminal VS Code ke ANDAR hi khulega:
+
+Method 1 (Keyboard Shortcut - Fast):
+  Ctrl + `  (Ctrl aur backtick key ek saath)
+  Backtick key = ESC key ke neeche wali key
+
+Method 2 (Menu Se):
+  Terminal → New Terminal
+
+
+✅ CHECK KARO - TERMINAL SAHI FOLDER MEIN HAI?
+═══════════════════════════════════════════════════════════
+
+Terminal mein kuch aisa dikhna chahiye:
+
+  PS C:\Users\YourName\Desktop\byk-market-ai>
+
+Ya
+
+  C:\Users\YourName\Desktop\byk-market-ai>
+
+"byk-market-ai" naam dikna chahiye path mein ✅
+
+Agar nahi dikha to terminal mein ye command chalaao:
+  cd Desktop/byk-market-ai
+
+
+📦 STEP 4: PACKAGES INSTALL KARO (Sabse Important!)
+═══════════════════════════════════════════════════════════
+
+Terminal mein YE COMMAND chalaao:
+
+  npm install
+
+Enter dabao aur WAIT karo!
+
+Kya Hoga:
+  • Screen pe bahut saari lines dikhengi
+  • "added 57 packages" jaisa message aayega
+  • 1-2 minute lag sakta hai (internet speed pe depend karta hai)
+  • Kuch warnings aa sakti hain - IGNORE karo
+
+Success Message:
+  "added XX packages, and audited XX packages in XXs"
+
+Agar Error Aaye:
+  • Internet connection check karo
+  • npm install dobara chalaao
+  • Ya mujhe error message dikhao
+
+
+🚀 STEP 5: SERVER START KARO
+═══════════════════════════════════════════════════════════
+
+Terminal mein YE COMMAND chalaao:
+
+  npm run dev
+
+Enter dabao!
+
+SUCCESS! Ye Dikhna Chahiye:
+  ─────────────────────────────────────
+  🚀  BYK Market AI Server Started
+  🌐  URL: http://localhost:5000
+  🔗  Health: http://localhost:5000/api/health
+  📦  Mode: development
+  ─────────────────────────────────────
+
+Agar ye dikha → SERVER CHAL GAYA! ✅
+
+
+🌐 STEP 6: BROWSER MEIN TEST KARO
+═══════════════════════════════════════════════════════════
+
+Apna Browser (Chrome/Edge/Firefox) kholo aur ye URL paste karo:
+
+  http://localhost:5000/api/health
+
+SUCCESS! Ye JSON Response Dikhna Chahiye:
+
+  {
+    "success": true,
+    "message": "🚀 BYK Market AI Server is LIVE!",
+    "timestamp": "2026-05-03T...",
+    "environment": "development"
+  }
+
+Agar ye dikha → CONGRATULATIONS! Server perfectly chal raha hai! 🎉
+
+
+🛑 SERVER BAND KARNA HAI?
+═══════════════════════════════════════════════════════════
+
+Terminal mein Ctrl + C dabao (2 baar)
+
+
+🔄 DOBARA SERVER START KARNA HAI?
+═══════════════════════════════════════════════════════════
+
+  npm run dev
+
+
+❌ COMMON PROBLEMS & SOLUTIONS
+═══════════════════════════════════════════════════════════
+
+Problem 1: "Cannot find module 'express'"
+Solution: npm install command dobara chalaao
+
+Problem 2: "Port 5000 already in use"
+Solution: 
+  • Purana server band karo (Ctrl + C)
+  • Ya .env file mein PORT=5001 kar do
+
+Problem 3: "nodemon: command not found"
+Solution: npm install check karo, ya seedha chalaao: node server.js
+
+Problem 4: Terminal mein "command not found"
+Solution: Folder check karo - sahi jagah ho?
+
+Problem 5: Browser mein "This site can't be reached"
+Solution: 
+  • Server chal raha hai? Terminal check karo
+  • URL theek se copy kiya? http://localhost:5000/api/health
+
+
+📝 IMPORTANT COMMANDS YAAD RAKHO
+═══════════════════════════════════════════════════════════
+
+npm install         → Packages install karta hai (ek baar only)
+npm run dev         → Development server start (auto-restart)
+npm start           → Production server start
+Ctrl + C            → Server stop
+
+
+🎯 NEXT STEPS (Baad Mein)
+═══════════════════════════════════════════════════════════
+
+Step 1: Backend server ✅ (YE HO GAYA!)
+Step 2: PostgreSQL database setup
+Step 3: User authentication (JWT)
+Step 4: API integration (Crypto + Stocks)
+Step 5: Portfolio tracking
+Step 6: Frontend React app
+
+
+💡 TIPS
+═══════════════════════════════════════════════════════════
+
+• Hamesha VS Code ke TERMINAL use karo (separate CMD nahi)
+• Server chalte waqt terminal BAND mat karo
+• Code edit karne pe server auto-restart hota hai (nodemon ki wajah se)
+• Har change ke baad browser refresh karo (F5)
+
+
+📞 HELP CHAHIYE?
+═══════════════════════════════════════════════════════════
+
+Agar koi step samajh na aaye:
+  1. Screenshot lo
+  2. Error message copy karo
+  3. Mujhe bhejo - main fix karunga!
+
+
+════════════════════════════════════════════════════════════
+Made with ❤️ for BYK Market AI
+Happy Coding! 🚀
+════════════════════════════════════════════════════════════
