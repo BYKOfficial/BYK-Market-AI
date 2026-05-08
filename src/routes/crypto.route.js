@@ -4,26 +4,19 @@ const axios = require('axios');
 router.get('/prices', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://api.coingecko.com/api/v3/coins/markets',
-      {
-        params: {
-          vs_currency: 'inr',
-          order: 'market_cap_desc',
-          per_page: 10,
-          page: 1,
-          sparkline: false
-        }
-      }
+      'https://api.coincap.io/v2/assets?limit=10'
     );
 
-    const coins = response.data.map(coin => ({
+    const USD_TO_INR = 84;
+
+    const coins = response.data.data.map(coin => ({
       id: coin.id,
       name: coin.name,
-      symbol: coin.symbol.toUpperCase(),
-      price_inr: coin.current_price,
-      change_24h: coin.price_change_percentage_24h,
-      market_cap: coin.market_cap,
-      image: coin.image
+      symbol: coin.symbol,
+      price_inr: parseFloat((parseFloat(coin.priceUsd) * USD_TO_INR).toFixed(2)),
+      change_24h: parseFloat(parseFloat(coin.changePercent24Hr).toFixed(2)),
+      market_cap: parseFloat(coin.marketCapUsd),
+      image: `https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`
     }));
 
     res.json({
