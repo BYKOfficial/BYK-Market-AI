@@ -16,6 +16,7 @@ app.use('/api/crypto', require('./routes/crypto.route'));
 app.use('/api/stock', require('./routes/stock.route'));
 app.use('/api/trade', require('./routes/trade.route'));
 app.use('/api/portfolio', require('./routes/portfolio.route'));
+app.use('/api/signals', require('./routes/signals'));
 
 app.use((req, res) => {
   res.status(404).json({
