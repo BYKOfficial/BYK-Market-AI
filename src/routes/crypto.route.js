@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const axios = require('axios');
 
 const COINS = [
@@ -14,10 +15,20 @@ const COINS = [
   { id: 'LINK', name: 'Chainlink', pair: 'LINK-USD' },
 ];
 
-router.get('/prices', async (req, res) => {
-  try {
-    const USD_TO_INR = 84;
+const USD_TO_INR = 84;
 
+function getSignal(change) {
+  const c = parseFloat(change);
+  if (isNaN(c)) return { signal: 'HOLD', reason: 'Data unavailable', color: '#aaa' };
+  if (c >= 5) return { signal: 'SELL', reason: `+${c.toFixed(2)}% — Overbought`, color: '#ff4444' };
+  if (c >= 2) return { signal: 'SELL', reason: `+${c.toFixed(2)}% — Rising fast`, color: '#ff8800' };
+  if (c <= -5) return { signal: 'BUY', reason: `${c.toFixed(2)}% — Oversold`, color: '#00ff88' };
+  if (c <= -2) return { signal: 'BUY', reason: `${c.toFixed(2)}% — Dip opportunity`, color: '#00cc66' };
+  return { signal: 'HOLD', reason: `${c.toFixed(2)}% — Stable`, color: '#ffcc00' };
+}
+
+router.get('/', async (req, res) => {
+  try {
     const results = await Promise.all(
       COINS.map(async (coin) => {
         const response = await axios.get(
@@ -27,23 +38,20 @@ router.get('/prices', async (req, res) => {
         const last = parseFloat(data.last);
         const open = parseFloat(data.open);
         const change = open > 0 ? parseFloat(((last - open) / open * 100).toFixed(2)) : 0;
-
         return {
           id: coin.id.toLowerCase(),
           name: coin.name,
           symbol: coin.id,
-          price_inr: parseFloat((last * USD_TO_INR).toFixed(2)),
-          change_24h: change,
-          market_cap: 0,
-          image: `https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/${coin.id.toLowerCase()}.png`
+          image: `https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/${coin.id.toLowerCase()}.png`,
+          price: parseFloat((last * USD_TO_INR).toFixed(2)),
+          change: change,
+          ...getSignal(change),
         };
       })
     );
-
-    res.json({ success: true, message: '🚀 Live Crypto Prices', count: results.length, data: results });
-
-  } catch (error) {
-    res.status(500).json({ success: false, message: '❌ Failed to fetch crypto prices', error: error.message });
+    res.json({ success: true, data: results });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Signals fetch failed', error: err.message });
   }
 });
 
