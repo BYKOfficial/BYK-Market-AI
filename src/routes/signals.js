@@ -14,23 +14,19 @@ function getSignal(change) {
 
 router.get('/', async (req, res) => {
   try {
-    const cryptoRes = await axios.get(
-      'https://api.coingecko.com/api/v3/coins/markets',
-      { params: { vs_currency: 'inr', order: 'market_cap_desc', per_page: 10, page: 1 } }
-    );
-    const signals = cryptoRes.data.map(coin => ({
+    const cryptoRes = await axios.get('https://byk-market-ai.onrender.com/api/crypto/prices');
+    const signals = cryptoRes.data.data.map(coin => ({
       id: coin.id,
       name: coin.name,
-      symbol: coin.symbol.toUpperCase(),
+      symbol: coin.symbol,
       image: coin.image,
-      price: coin.current_price,
-      change: coin.price_change_percentage_24h,
-      type: 'crypto',
-      ...getSignal(coin.price_change_percentage_24h),
+      price: coin.price_inr,
+      change: coin.change_24h,
+      ...getSignal(coin.change_24h),
     }));
     res.json({ success: true, data: signals });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Signals fetch failed' });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
